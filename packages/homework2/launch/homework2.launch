@@ -2,7 +2,7 @@
 
   <group ns="homework2">
     <node pkg="homework1" name="homework1" type="homework1.py"/>
-    <node pkg="homework2" name="homework2" type="homework1.py"/>
+    <node pkg="homework2" name="homework2" type="homework2.py"/>
  </group>
   
 </launch>
