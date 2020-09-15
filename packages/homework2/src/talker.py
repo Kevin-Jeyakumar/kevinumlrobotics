@@ -5,7 +5,7 @@ from std_msgs.msg import Float32
 
 class Talker:
     def __init__(self):
-        self.pub = rospy.Publisher("/delta", Float32, queue_size=10)
+        self.pub = rospy.Publisher("/homework1/delta", Float32, queue_size=10)
 
 if __name__ == '__main__':
     rospy.init_node('talker')
