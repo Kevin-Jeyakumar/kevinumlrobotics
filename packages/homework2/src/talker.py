@@ -9,7 +9,7 @@ class Talker:
         self.x=0
 
     def talk(self):
-        self.pub.publish(x)
+        self.pub.publish(self.x)
 
 if __name__ == '__main__':
     try:
