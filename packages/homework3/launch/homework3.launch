@@ -1,0 +1,11 @@
+<launch>
+
+    <include file="$(find homework1)/launch/homework1.launch"/>
+    <include file="$(fing homework2)/launch/homework2.launch">
+        <remap from="/homework1/total" to="/homework3/converted_total"/>
+    </include>
+
+    <group ns="homework3">
+        <node pkg="homework3" name="homework3" type=homework3.py"/>
+    </group>
+</launch>
