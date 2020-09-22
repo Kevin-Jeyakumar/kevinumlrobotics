@@ -13,8 +13,7 @@ class Homework3:
     def callback(self, data):
         if rospy.has_param("unit"):
             self.unit = rospy.get_param("unit")
-        else
-            self.unit = "meters"
+        else self.unit = "meters"
         if(self.unit == "meters")
             self.x=data.data*0.3048
         else if(self.unit == "smoots")
