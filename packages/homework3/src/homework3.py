@@ -7,9 +7,15 @@ class Homework3:
     def __init__(self):
         rospy.Subscriber("/homework1/total", Float32, self.callback)
         self.pub = rospy.Publisher("changed_total", Float32, queue_size=10)
-        self.x = 0
+        self.x = 0 
+        self.current_unit = "feet"
+        self.required_unit = "meters"
 
     def callback(self, data):
+        if rospy.has_param("unit"):
+            self.unit = rospy.get_param("unit")
+        #if(self.unit == "meters")
+        #    self.xt
         self.pub.publish(data.data)
 
 if __name__ == '__main__':
