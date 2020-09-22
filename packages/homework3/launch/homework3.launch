@@ -6,6 +6,7 @@
         <node pkg="homework2" name="talker" type="talker.py"/>
         <node pkg="homework2" name="listener" type="listener.py">
             <remap from="/homework1/total" to="/homework3/converted_total"/>
+        </node>
         <node pkg="homework3" name="homework3" type="homework3.py"/>
 
 
