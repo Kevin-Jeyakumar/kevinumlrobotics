@@ -11,7 +11,7 @@
     </group>
 
     <group ns="homework3">
-        
+        <param name="unit" type="String" value="meters"/>
         <node pkg="homework3" name="homework3" type="homework3.py"/>
     
     </group>
