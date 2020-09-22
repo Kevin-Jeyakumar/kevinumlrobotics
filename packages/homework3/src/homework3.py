@@ -17,9 +17,9 @@ class Homework3:
             self.unit = "meters"
         if self.unit == "meters" :
             self.x=data.data*0.3048
-        else if self.unit == "smoots" :
+        elif self.unit == "smoots" :
             self.x = data.data/5.5833
-        else if self.unit == "feet" :
+        elif self.unit == "feet" :
             self.x = data.data
         self.pub.publish(self.x)
 
