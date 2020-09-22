@@ -8,15 +8,21 @@ class Homework3:
         rospy.Subscriber("/homework1/total", Float32, self.callback)
         self.pub = rospy.Publisher("converted_total", Float32, queue_size=10)
         self.x = 0 
-        self.current_unit = "feet"
-        self.required_unit = "meters"
+        self.unit = "meters"
 
     def callback(self, data):
         if rospy.has_param("unit"):
-            self.unit = rospy.get_param("unit")
-        #if(self.unit == "meters")
-        #    self.xt
-        self.pub.publish(data.data)
+            self.required_unit = rospy.get_param("unit")
+        if(self.unit == "meters")
+            self.x=data.data*0.3048
+        else if(self.unit == "smoots")
+            self.x = data.data/5.5833
+        else if(self.unit == "feet")
+            self.x = data.data
+        self.pub.publish(self.x)
+
+        temp_string = "Unit: %s; Input: %f feet; Output: %f %s" % (self.unit, data.data, self.x, self.unit)
+        rospy.loginfo(temp_string)
 
 if __name__ == '__main__':
     rospy.init_node('homework3')
