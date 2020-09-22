@@ -4,7 +4,8 @@
         <node pkg="homework3" name="homework3" type="homework3.py"/>
     </group>
     
-    <remap from="/homework1/total" to="/homework3/converted_total"/>
-    <include file="$(find homework2)/launch/homework2.launch"/>
+    <include file="$(find homework2)/launch/homework2.launch">
+        <remap from="/homework1/total" to="/homework3/converted_total"/>
+    </include>
 
 </launch>
