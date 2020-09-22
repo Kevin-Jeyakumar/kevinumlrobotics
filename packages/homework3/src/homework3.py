@@ -6,7 +6,7 @@ from std_msgs.msg import Float32
 class Homework3:
     def __init__(self):
         rospy.Subscriber("/homework1/total", Float32, self.callback)
-        self.pub = rospy.Publisher("changed_total", Float32, queue_size=10)
+        self.pub = rospy.Publisher("converted_total", Float32, queue_size=10)
         self.x = 0 
         self.current_unit = "feet"
         self.required_unit = "meters"
