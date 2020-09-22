@@ -1,11 +1,14 @@
 <launch>
 
-    <remap from="/homework1/total" to="/homework3/converted_total"/>
-    <include file="$(find homework2)/launch/homework2.launch"/>
-
     <group ns="homework3">
-        <remap from="/homework3/hw3_temp" to="/homework1/total"/>
+        
+        <node pkg="homework1" name="homework1" type="homework1.py"/>
+        <node pkg="homework2" name="talker" type="talker.py"/>
+        <node pkg="homework2" name="listener" type="listener.py">
+            <remap from="/homework1/total" to="/homework3/converted_total"/>
         <node pkg="homework3" name="homework3" type="homework3.py"/>
+
+
     </group>
     
    </launch>
