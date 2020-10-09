@@ -11,7 +11,7 @@
 
     <group ns="homework4">
         <param name="unit" type="String" value="smoots"/>
-        <node pkg="homework4" name="homework4_node" type="homework4.py"/>
+        <node pkg="homework4" name="homework4_node" type="homework4_node.py"/>
     
     </group>
     
