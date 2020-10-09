@@ -28,14 +28,14 @@ class Homework4:
 
         hw4_msg=homework4_msgs()
         hw4_msg.num=self.x
-        hw4_msg.units=self.unit_
+        hw4_msg.units=self.unit
 
         self.pub.publish(hw4_msg)
 
 
 if __name__ == '__main__':
     rospy.init_node('homework4_node')
-    hom=Homework4()
+    Homework4()
 
 
     rospy.spin()
