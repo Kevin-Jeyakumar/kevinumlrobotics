@@ -1,0 +1,18 @@
+<launch>
+
+    <include file="$(find homework1)/launch/homework1.launch"/>
+   
+    <group ns="homework2">
+        
+        <remap from="/homework1/total" to="/homework3/converted_total"/>
+        <node pkg="homework2" name="talker" type="talker.py"/>
+    
+    </group>
+
+    <group ns="homework4">
+        <param name="unit" type="String" value="smoots"/>
+        <node pkg="homework4" name="homework4_node" type="homework4.py"/>
+    
+    </group>
+    
+</launch>
