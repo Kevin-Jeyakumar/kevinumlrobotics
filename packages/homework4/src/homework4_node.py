@@ -23,9 +23,6 @@ class Homework4:
         elif self.unit == "feet" :
             self.x = data.data
 
-        temp_string = "Unit: %s; Input: %f feet; Output: %f %s" % (self.unit, data.data, self.x, self.unit)
-        rospy.loginfo(temp_string)
-
         hw4_msg=homework4_msgs()
         hw4_msg.num=self.x
         hw4_msg.units=self.unit
