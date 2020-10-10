@@ -14,7 +14,7 @@
     </group>
 
 
-    <node pkg="example_action_server" name="fibonacci" type=example_action_server_node.py"/>
+    <node pkg="example_action_server" name="fibonacci" type="example_action_server_node.py"/>
     <node pkg="example_service" name="fibonacci_service" type="example_service_node.py"/>
     <node pkg="homework4" name="fibonacci_client" type="homework4_node2.py"/>
 
