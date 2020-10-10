@@ -3,7 +3,7 @@
 import sys
 import rospy
 import actionlib
-from example_service.src import *
+from example_service.srv import *
 import example_action_server.msg
 
 def fibonacci_service_client(x):
