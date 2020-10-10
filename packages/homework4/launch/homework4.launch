@@ -3,8 +3,6 @@
     <include file="$(find homework1)/launch/homework1.launch"/>
    
     <group ns="homework2">
-        
-        <remap from="/homework1/total" to="/homework3/converted_total"/>
         <node pkg="homework2" name="talker" type="talker.py"/>
     
     </group>
@@ -14,5 +12,13 @@
         <node pkg="homework4" name="homework4_node" type="homework4_node.py"/>
     
     </group>
+
+
+    <node pkg="example_action_server" name="fibonacci" type=example_action_server_node.py"/>
+    <node pkg="example_service" name="fibonacci_service" type="example_service_node.py"/>
+    <node pkg="homework4" name="fibonacci_client" type="homework4_node2.py"/>
+
+
+
     
 </launch>
