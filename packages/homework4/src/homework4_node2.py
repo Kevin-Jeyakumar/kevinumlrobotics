@@ -50,12 +50,12 @@ if __name__ == "__main__":
     rospy.logwarn("Action Server Client Ended arg=3")
 
 
-    rospy.logwarn("Started Service Client Fn Call with arg=15")
+    rospy.logwarn("Started Service Client with arg=15")
     serv_res2=fibonacci_service_client(15)
     print("Service Result for agr=15 : ",serv_res2)
     rospy.logwarn("Service Client Ended arg=15")
 
-    rospy.logwarn("Started Action Server Clienr with arg=15")
+    rospy.logwarn("Started Action Server Client with arg=15")
     try:
         act_serv_res2=fibonacci_action_server_client(15)
         print("Action Server Result for agr=15 : ",act_serv_res2)
