@@ -63,6 +63,5 @@ if __name__ == "__main__":
         print("Action Server Client Interrupted")
     rospy.logwarn("Action Server Client Ended arg=15")
 
-    rospy.spin()
 
 
