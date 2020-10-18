@@ -4,12 +4,12 @@ import rospy
 from std_msgs.msg import Float32
 from duckietown_msgs.msg import Twist2DStamped
 
-class Homework4:
+class Circle:
     def __init__(self):
         #rospy.Subscriber("/homework1/total", Float32, self.callback)
         self.pub = rospy.Publisher("converted_total", duckietown_msgs, queue_size=10)
 
-    def circ(self,y,x)
+    def circ(self,y,x):
         circ_msg=duckietown_msgs()
         circ_msg.v=y
         circ_msg.omega=x
