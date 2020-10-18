@@ -10,7 +10,7 @@ class Circle:
         self.pub = rospy.Publisher("/duckduckgone/car_cmd_switch_node/cmd", duckietown_msgs, queue_size=10)
 
     def circ(self,y,x):
-        circ_msg=duckietown_msgs()
+        circ_msg=Twist2DStamped()
         circ_msg.v=y
         circ_msg.omega=x
 
