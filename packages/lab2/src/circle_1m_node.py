@@ -7,7 +7,7 @@ from duckietown_msgs.msg import Twist2DStamped
 class Circle:
     def __init__(self):
         #rospy.Subscriber("/homework1/total", Float32, self.callback)
-        self.pub = rospy.Publisher("/duckduckgone/car_cmd_switch_node/cmd", duckietown_msgs, queue_size=10)
+        self.pub = rospy.Publisher("/duckduckgone/car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
 
     def circ(self,y,x):
         circ_msg=Twist2DStamped()
@@ -23,7 +23,7 @@ if __name__ == '__main__':
         ob=Circle()
         rate=rospy.Rate(10)
         while not rospy.is_shutdown():
-            ob.circ(0.4,2)
+            ob.circ(0.4,2.5)
             rate.sleep()
     except rospy.ROSInterruptException:
         pass
