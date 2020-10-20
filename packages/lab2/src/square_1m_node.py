@@ -23,13 +23,25 @@ if __name__ == '__main__':
         ob=Square()
         rate=rospy.Rate(10)
         count=0
-        while not rospy.is_shutdown():
-            ob.move(0.5,3.14)
+        for c in range(0,4):
+            for count in range(0,10):
+                ob.move(0,0)
+                rate.sleep()
+            for count in range(0,20):
+                ob.move(0.5,0)
+                rate.sleep()
+            for count in range(0,10):
+                ob.move(0,0)
+                rate.sleep()
+            for count in range(0,6):
+                ob.move(0,3)
+                rate.sleep()
+            ob.move(0,0)
             #ob.move(0,1)
-            rate.sleep()
-            if count==100:
-                break;
-            count = count+1
+            #rate.sleep()
+            #if count==100:
+            #    break;
+            #count = count+1
         ob.move(0,0)
     except rospy.ROSInterruptException:
         pass

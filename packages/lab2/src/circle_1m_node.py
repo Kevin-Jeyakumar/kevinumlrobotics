@@ -24,10 +24,10 @@ if __name__ == '__main__':
         rate=rospy.Rate(10)
         count=0
         while not rospy.is_shutdown():
-            ob.move(0.5,3.14)
+            ob.move(0.17,-0.5)
             #ob.move(0,1)
             rate.sleep()
-            if count==100:
+            if count==200:
                 break;
             count = count+1
         ob.move(0,0)
