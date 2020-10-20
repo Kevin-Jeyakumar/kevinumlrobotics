@@ -4,7 +4,7 @@ import rospy
 from std_msgs.msg import Float32
 from duckietown_msgs.msg import Twist2DStamped
 
-class Circle:
+class Square:
     def __init__(self):
         #rospy.Subscriber("/homework1/total", Float32, self.callback)
         self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
@@ -19,8 +19,8 @@ class Circle:
 
 if __name__ == '__main__':
     try:
-        rospy.init_node('circle_1m_node')
-        ob=Circle()
+        rospy.init_node('square_1m_node')
+        ob=Square()
         rate=rospy.Rate(10)
         count=0
         while not rospy.is_shutdown():
