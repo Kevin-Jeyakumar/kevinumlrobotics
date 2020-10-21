@@ -6,7 +6,6 @@ from duckietown_msgs.msg import Twist2DStamped
 
 class Square:
     def __init__(self):
-        #rospy.Subscriber("/homework1/total", Float32, self.callback)
         self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
 
     def move(self,y,x):
@@ -23,25 +22,20 @@ if __name__ == '__main__':
         ob=Square()
         rate=rospy.Rate(10)
         count=0
-        for c in range(0,4):
+        for c in range(0,4):#one iteration for each side of the square
             for count in range(0,10):
-                ob.move(0,0)
+                ob.move(0,0)#stop
                 rate.sleep()
             for count in range(0,20):
-                ob.move(0.5,0)
+                ob.move(0.5,0)#forward 1meter
                 rate.sleep()
             for count in range(0,10):
-                ob.move(0,0)
+                ob.move(0,0)#stop
                 rate.sleep()
             for count in range(0,6):
-                ob.move(0,3)
+                ob.move(0,3)#90degree left turn
                 rate.sleep()
             ob.move(0,0)
-            #ob.move(0,1)
-            #rate.sleep()
-            #if count==100:
-            #    break;
-            #count = count+1
         ob.move(0,0)
     except rospy.ROSInterruptException:
         pass

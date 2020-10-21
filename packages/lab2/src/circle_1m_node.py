@@ -22,14 +22,9 @@ if __name__ == '__main__':
         rospy.init_node('circle_1m_node')
         ob=Circle()
         rate=rospy.Rate(10)
-        count=0
-        while not rospy.is_shutdown():
-            ob.move(0.17,-0.5)
-            #ob.move(0,1)
+        for count in range(0,100):#10 second timer
+            ob.move(0.7,1.5)
             rate.sleep()
-            if count==200:
-                break;
-            count = count+1
         ob.move(0,0)
     except rospy.ROSInterruptException:
         pass
