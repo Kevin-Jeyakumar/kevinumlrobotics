@@ -1,7 +1,7 @@
 <launch>
-    <include file="$(find controls_hw)/launch/start_dynamics.launch/>
+    <include file="$(find controls_hw)/launch/start_dynamics.launch"/>
 
-    <param name="controller_ready" type="String" value="true"/>
+    <param name="controller_ready" type="String" value="false"/>
 
-    <node pkg="my_pid_controller" name="pid_control" type="propIntDiff_control.py/>
+    <node pkg="my_pid_controller" name="pid_control" type="propIntDiff_control.py"/>
 </launch>

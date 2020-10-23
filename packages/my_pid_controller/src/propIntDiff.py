@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-class PID:
+class propIntDiff:
     def __init__(self):
         self.kp=1
         self.ki=1
