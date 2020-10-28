@@ -3,6 +3,8 @@
 This repository is for developing ROS-based 
 software in Duckietown. Used for UML EECE 5560
 
+	![duckie image](duckie2-300x270.png)
+
 ## How to use it
 
 Pull code to see my assignments work.
