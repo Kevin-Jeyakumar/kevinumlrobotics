@@ -29,7 +29,7 @@ class Dist_PID(PID):
         temp_time = timing.secs+(timing.nsecs/1000000000)
         rospy.loginfo(("time: {}, d: {}, phi: {}, ".format(temp_time, data.d, data.phi)))
 
-        inp = self.calculateSignal(self,error,temp_time)
+        inp = 0#self.calculateSignal(self,error,temp_time)
         #if om!=0:
         #    self.vel = 0
         #    self.move(self, 0, (self.om*10))
@@ -42,10 +42,10 @@ class Dist_PID(PID):
         else:
             self.om=0
 
-        self.move(self)
+        #self.move(self)
 
 
-    def move(self)
+    def move(self):
         move_msg = Twist2DStamped()
         move_msg.v = self.vel
         move_msg.omega = self.om

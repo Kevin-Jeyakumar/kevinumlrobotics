@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-class PID_class:
+class PID:
     def __init__(self):
         self.kp=1
         self.ki=1
