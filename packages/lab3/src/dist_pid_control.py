@@ -29,9 +29,9 @@ class Dist_PID(PID):
         error = data.d
         timing = rospy.get_rostime()
         temp_time = timing.secs+(timing.nsecs/1000000000)
-        rospy.loginfo(("time: {}, d: {}, phi: {}, ".format(temp_time, data.d, data.phi)))
 
         inp = self.calculateSignal(error,temp_time)
+        rospy.loginfo(("time: {}, d: {}, phi: {}, input: {}".format(temp_time, data.d, data.phi, inp)))
         self.pub1.publish(error)
         self.pub2.publish(0)
         #if inp!=0:
@@ -39,13 +39,13 @@ class Dist_PID(PID):
         #    self.move(self, 0, (self.om*10))
         #else:
         #    self.move(self, self.vel, 0)
+        vel  = self.vel
         if inp>0:
             om = -self.om
         elif inp<0:
             om = self.om
         else:
             om=0
-        vel = self.vel
 
         self.move(vel,om)
 
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('dist_pid_controller_node')
         timing = rospy.get_rostime()
-        Dist_PID(0.185, 0, 0, (timing.secs+(timing.nsecs)), 0.2, 4)
+        Dist_PID(0.185, 0.00009, 1.9, (timing.secs+(timing.nsecs)), 0.2, 0.6)
         #hw6 values: p=0.185, i=0.00009, d=1.9
 
         rospy.spin()
