@@ -10,6 +10,8 @@ class Dist_PID(PID):
         PID.__init__(self,p,i,d,time)
         rospy.Subscriber("lane_filter_node/lane_pose", LanePose, self.callback)
         self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
+        self.pub1 = rospy.Publisher("my_dist_error", Float32, queue_size=10)
+        self.pub2 = rospy.Publisher("my_dist_desired", Float32, queue_size=10)
         self.vel = vel
         self.om = om
         rospy.set_param("p_d",self.kp)
@@ -30,6 +32,8 @@ class Dist_PID(PID):
         rospy.loginfo(("time: {}, d: {}, phi: {}, ".format(temp_time, data.d, data.phi)))
 
         inp = self.calculateSignal(error,temp_time)
+        self.pub1.publish(error)
+        self.pub2.publish(0)
         #if inp!=0:
         #    self.vel = 0
         #    self.move(self, 0, (self.om*10))
