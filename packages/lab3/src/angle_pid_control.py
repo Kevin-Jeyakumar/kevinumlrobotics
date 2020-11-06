@@ -35,12 +35,12 @@ class Angle_PID(PID):
         rospy.loginfo(("time: {:2.3f}, d: {:2.3f}, phi: {:2.3f}, input: {:2.3f} - Angle".format(temp_time_diff, data.d, data.phi, inp)))
         self.pub1.publish(error)
         self.pub1.publish(0)
-        if inp<0.2 and inp>-0.2:
+        if inp<0.3 and inp>-0.3:
             inp=0
 
         vel = self.vel
-        if inp!=0:
-            vel = 0
+        #if inp!=0:
+        #    vel = 0
         om = inp
 
         self.move(vel,om)
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('angle_pid_controller_node')
         timing = rospy.get_rostime()
-        Angle_PID(1.5, 0, 0, (timing.secs+(timing.nsecs)), 0.2, 0.6)
+        Angle_PID(1.5, 0, 0, (timing.secs+(timing.nsecs/1000000000)), 0.15, 0.6)
         #hw6 values: p=0.185, i=0.00009, d=1.9
 
         rospy.spin()
