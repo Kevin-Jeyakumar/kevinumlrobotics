@@ -17,6 +17,7 @@ class Dist_PID(PID):
         rospy.set_param("p_d",self.kp)
         rospy.set_param("i_d",self.ki)
         rospy.set_param("d_d",self.kd)
+        rospy.set_param("myparam_d","False")
 
     def callback(self,data):
         tmp_p = rospy.get_param("p_d")
@@ -26,7 +27,7 @@ class Dist_PID(PID):
             self.integral = 0
             self.changePID(tmp_p, tmp_i, tmp_d)
 
-        error = -0.05 - data.d
+        error = 0 - data.d
         timing = rospy.get_rostime()
         temp_time = timing.secs+(timing.nsecs/100000000)
 
@@ -35,13 +36,15 @@ class Dist_PID(PID):
         rospy.loginfo(("time: {:2.3f}, d: {:2.3f}, phi: {:2.3f}, input: {:2.3f} - Dist".format(temp_time_diff, data.d, data.phi, inp)))
         self.pub1.publish(error)
         self.pub2.publish(0)
-        if inp<0.3 and inp>-0.3:
+        if inp<0.2 and inp>-0.2:
             inp = 0
         
         vel  = self.vel
-        #if data.phi!=0:
-        #    return
-        #if inp!=0:
+        rospy.set_param("mypub_d","False")
+        if inp!=0:
+            rospy.set_param("mypub_d","True")
+        if rospy.get_param("mypub_phi") == "True":
+            return
         #    vel = 0
         om = inp
         self.move(vel,om)
@@ -59,7 +62,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('dist_pid_controller_node')
         timing = rospy.get_rostime()
-        Dist_PID(1.5, 0, 0, (timing.secs+(timing.nsecs/1000000000)), 0.15, 0.6)
+        Dist_PID(0, 0, 0, (timing.secs+(timing.nsecs/1000000000)), 0.1, 0.6)
         #hw6 values: p=0.185, i=0.00009, d=1.9
 
         rospy.spin()
