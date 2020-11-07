@@ -20,7 +20,7 @@ class PID:
     def changePID(self, p, i, d):
         self.kp=p
         self.ki=i
-        seld.kd=d
+        self.kd=d
 
     def calculateSignal(self, error, time_stamp):
         dt = time_stamp-self.past_time_stamp
