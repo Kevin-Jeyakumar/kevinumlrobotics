@@ -41,8 +41,9 @@
         <!-- <param name="i_phi" type="Float32" value="0"/> -->
         <!-- <param name="d_phi" type="Float32" value="0"/> -->
 
-        <node pkg="lab3" name="dist_pid_controller_node" type="dist_pid_control.py"/>
-        <node pkg="lab3" name="angle_pid_controller_node" type="angle_pid_control.py"/>
+        <!-- <node pkg="lab3" name="dist_pid_controller_node" type="dist_pid_control.py"/> -->
+        <!-- <node pkg="lab3" name="angle_pid_controller_node" type="angle_pid_control.py"/> -->
+        <node pkg="lab3" name="pid_controller_node_v2" type="pid_control_v2.py"/>
     </group>
 </launch>
 
