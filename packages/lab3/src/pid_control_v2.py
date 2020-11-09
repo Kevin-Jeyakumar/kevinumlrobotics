@@ -8,8 +8,8 @@ from PID_class import PID
 class PID_Controller_v2():
     def __init__(self,time):
         #hw6 values: p=0.185, i=0.00009, d=1.9
-        self.d_obj = PID(2.5,0,0,time)
-        self.phi_obj = PID(2,0,0,time)
+        self.d_obj = PID(3,0,0,time)
+        self.phi_obj = PID(1.5,0,0,time)
         rospy.Subscriber("lane_filter_node/lane_pose", LanePose, self.callback)
         self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
         self.pub1 = rospy.Publisher("/my_dist_error", Float32, queue_size=10)
@@ -40,7 +40,7 @@ class PID_Controller_v2():
         if self.phi_obj.integral>1000000000:
             self.phi_obj.integral = 0
 
-        d_error = 0 - data.d
+        d_error = -0.05 - data.d
         phi_error = 0 - data.phi
         timing = rospy.get_rostime()
         temp_time = timing.secs+(timing.nsecs/1000000000)
