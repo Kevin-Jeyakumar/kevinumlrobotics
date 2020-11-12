@@ -48,7 +48,7 @@ class PID_Controller_v2():
         temp_time_diff = temp_time - self.d_obj.past_time_stamp
         d_inp = self.d_obj.calculateSignal(d_error,temp_time)
         phi_inp = self.phi_obj.calculateSignal(phi_error,temp_time)
-        if self.count>=5:
+        if self.count>=5: #Logging once every 5 callbacks
             rospy.loginfo("KEVIN JEYAKUMAR LANE FOLLOWING CODE")
             rospy.loginfo(("time: {:.3f}, time_diff: {:.3f}, d: {:.3f}, phi: {:.3f}, d_input: {:.3f}, phi_input: {:.3f}".format(temp_time, temp_time_diff, data.d, data.phi, d_inp, phi_inp)))
             self.count = 0
