@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
+import numpy as np
 from odometry_hw.msg import *
 
 class Homework7:
@@ -8,9 +9,9 @@ class Homework7:
         rospy.Subscriber("/dist_wheel", DistWheel, self.callback)
         self.pub = rospy.Publisher("/pose", Pose2D, queue_size=10)
         self.pos = Pose2D() 
-        pos.x = 0
-        pos.y = 0
-        pos.theta = 0
+        self.pos.x = 0
+        self.pos.y = 0
+        self.pos.theta = 0
         self.pub.publish(self.pos)
 
     def callback(self,data):
@@ -19,15 +20,15 @@ class Homework7:
         del_theta = data.dist_wheel_right - data.dist_wheel_left
         del_theta /= 0.1
 
-        self.x += del_s * np.cos(self.theta + (del_theta/2))
-        self.y += del_s * np.sin(self.theta + (del_theta/2))
-        self.theta += del_theta
+        self.pos.x += del_s * np.cos(self.pos.theta + (del_theta/2))
+        self.pos.y += del_s * np.sin(self.pos.theta + (del_theta/2))
+        self.pos.theta += del_theta
 
         self.pub.publish(self.pos)
 
 if __name__ == "__main__":
-    Homework7()
     rospy.init_node("homework7_node")
+    Homework7()
     
     rospy.spin()
 
