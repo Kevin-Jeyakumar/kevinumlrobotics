@@ -9,14 +9,9 @@ class Lab4:
     def __init__(self):
         rospy.Subscriber("wheels_driver_node/wheels_cmd", WheelsCmdStamped, self.callback)
         self.pub = rospy.Publisher("/lab4_output", String, queue_size=10)
-        #self.pos = Pose2D()
         self.x = 0
         self.y = 0
         self.theta = 0
-        #self.x_list = list()
-        #self.y_list = list()
-        #self.x_list.append(self.x)
-        #self.y_list.append(self.y)
         my_time = rospy.get_rostime()
         self.past_time = my_time.secs + (my_time.nsecs/1000000000)
         rospy.loginfo("-----ODOMETER STARTED-----")
@@ -38,9 +33,6 @@ class Lab4:
         self.x += del_s * np.cos(self.theta + (del_theta/2))
         self.y += del_s * np.sin(self.theta + (del_theta/2))
         self.theta += del_theta
-
-        #self.x_list.append(self.x)
-        #self.y_list.append(self.y)
 
         #mylogstr = "x:",self.x,"y:",self.y
         my_angle = self.theta*360/(2*np.pi)
