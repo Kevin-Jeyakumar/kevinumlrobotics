@@ -25,6 +25,9 @@ class Lab4:
         my_time = rospy.get_rostime()
         present_time = my_time.secs + (my_time.nsecs/1000000000)
         del_t = present_time - self.past_time
+        self.past_time = present_time
+        if del_t>1:
+            return
         dist_left = data.vel_left * del_t
         dist_right = data.vel_right * del_t
         del_s = dist_left + dist_right
@@ -35,7 +38,6 @@ class Lab4:
         self.x += del_s * np.cos(self.theta + (del_theta/2))
         self.y += del_s * np.sin(self.theta + (del_theta/2))
         self.theta += del_theta
-        self.past_time = present_time
 
         #self.x_list.append(self.x)
         #self.y_list.append(self.y)
