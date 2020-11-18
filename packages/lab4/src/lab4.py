@@ -2,12 +2,13 @@
 
 import rospy
 import numpy as np
+from std_msgs.msg import String 
 from duckietown_msgs.msg import WheelsCmdStamped
 
 class Lab4:
     def __init__(self):
         rospy.Subscriber("wheels_driver_node/wheels_cmd", WheelsCmdStamped, self.callback)
-        #self.pub = rospy.Publisher("/pose", Pose2D, queue_size=10)
+        self.pub = rospy.Publisher("/lab4_output", String, queue_size=10)
         #self.pos = Pose2D()
         self.x = 0
         self.y = 0
@@ -43,7 +44,9 @@ class Lab4:
         my_angle = self.theta*360/(2*np.pi)
         if my_angle>360 or my_angle<-360:
             my_angle = my_angle%360
-        rospy.loginfo("x: {:.3f}, y: {:.3f}, theta: {:.3f}".format(self.x,self.y,my_angle))
+        #rospy.loginfo("x: {:.3f}, y: {:.3f}, theta: {:.3f}".format(self.x,self.y,my_angle))
+        output_str = "x: {:.3f}, y: {:.3f}, theta: {:.3f}".format(self.x,self.y,my_angle)
+        self.pub.publish(output_str)
 
 if __name__ == "__main__":
     rospy.init_node("lab4_node")

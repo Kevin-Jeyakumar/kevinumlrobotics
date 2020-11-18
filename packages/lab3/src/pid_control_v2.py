@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
-from std_msgs.msg import Float32
+from std_msgs.msg import Float32, String
 from duckietown_msgs.msg import *
 from PID_class import PID
 
@@ -15,6 +15,7 @@ class PID_Controller_v2():
         self.pub1 = rospy.Publisher("/my_dist_error", Float32, queue_size=10)
         self.pub2 = rospy.Publisher("/my_phi_error", Float32, queue_size=10)
         self.pub3 = rospy.Publisher("/my_desired", Float32, queue_size=10)
+        self.pub4 = rospy.Publisher("/lab3_output", String, queue_size=10)
         self.vel = 0.1
         self.count = 0
        
@@ -49,8 +50,10 @@ class PID_Controller_v2():
         d_inp = self.d_obj.calculateSignal(d_error,temp_time)
         phi_inp = self.phi_obj.calculateSignal(phi_error,temp_time)
         if self.count>=5: #Logging once every 5 callbacks
-            rospy.loginfo("KEVIN JEYAKUMAR LANE FOLLOWING CODE")
-            rospy.loginfo(("time: {:.3f}, time_diff: {:.3f}, d: {:.3f}, phi: {:.3f}, d_input: {:.3f}, phi_input: {:.3f}".format(temp_time, temp_time_diff, data.d, data.phi, d_inp, phi_inp)))
+            output_str = "time: {:.3f}, time_diff: {:.3f}, d: {:.3f}, phi: {:.3f}, d_input: {:.3f}, phi_input: {:.3f}".format(temp_time, temp_time_diff, data.d, data.phi, d_inp, phi_inp)
+            self.pub4.publish(output_str)
+            #rospy.loginfo("KEVIN JEYAKUMAR LANE FOLLOWING CODE")
+            #rospy.loginfo(("time: {:.3f}, time_diff: {:.3f}, d: {:.3f}, phi: {:.3f}, d_input: {:.3f}, phi_input: {:.3f}".format(temp_time, temp_time_diff, data.d, data.phi, d_inp, phi_inp)))
             self.count = 0
         #elif self.count%3==0:
         #    return
