@@ -23,8 +23,9 @@ class Lab4:
         self.past_time = present_time
         if del_t>1:
             return
+        trim_correction = 51/49
         dist_left = data.vel_left * del_t
-        dist_right = data.vel_right * del_t
+        dist_right = data.vel_right * del_t * trim_correction
         del_s = dist_left + dist_right
         del_s /= 2
         del_theta = dist_right - dist_left
