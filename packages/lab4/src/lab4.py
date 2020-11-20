@@ -8,7 +8,7 @@ from duckietown_msgs.msg import WheelsCmdStamped
 class Lab4:
     def __init__(self):
         rospy.Subscriber("wheels_driver_node/wheels_cmd", WheelsCmdStamped, self.callback)
-        self.pub = rospy.Publisher("/lab4_output", String, queue_size=10)
+        self.pub = rospy.Publisher("/lab4_output", String, queue_size=1)
         self.x = 0
         self.y = 0
         self.theta = 0

@@ -11,7 +11,7 @@ class PID_Controller_v2():
         self.d_obj = PID(3,0,0,time)
         self.phi_obj = PID(1.5,0,0,time)
         rospy.Subscriber("lane_filter_node/lane_pose", LanePose, self.callback)
-        self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
+        self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=1)
         self.pub1 = rospy.Publisher("/my_dist_error", Float32, queue_size=10)
         self.pub2 = rospy.Publisher("/my_phi_error", Float32, queue_size=10)
         self.pub3 = rospy.Publisher("/my_desired", Float32, queue_size=10)
