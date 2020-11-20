@@ -45,6 +45,7 @@ class Lab4:
 
 if __name__ == "__main__":
     rospy.init_node("lab4_node")
+    rospy.set_param("kinematics_node/trim",-0.03)
     Lab4()
     
     rospy.spin()
