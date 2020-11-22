@@ -7,6 +7,7 @@ from duckietown_msgs.msg import WheelsCmdStamped
 
 class Lab4:
     def __init__(self):
+        #rospy.set_param("kinematics_node/trim",-0.03)
         rospy.Subscriber("wheels_driver_node/wheels_cmd", WheelsCmdStamped, self.callback)
         self.pub = rospy.Publisher("/lab4_output", String, queue_size=1)
         self.x = 0
@@ -23,7 +24,7 @@ class Lab4:
         self.past_time = present_time
         if del_t>1:
             return
-        trim_correction = 51/49
+        trim_correction = 1#51/49
         dist_left = data.vel_left * del_t
         dist_right = data.vel_right * del_t * trim_correction
         del_s = dist_left + dist_right
@@ -45,7 +46,6 @@ class Lab4:
 
 if __name__ == "__main__":
     rospy.init_node("lab4_node")
-    rospy.set_param("kinematics_node/trim",-0.03)
     Lab4()
     
     rospy.spin()

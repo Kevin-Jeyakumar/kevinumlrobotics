@@ -6,7 +6,7 @@ from duckietown_msgs.msg import Twist2DStamped
 
 class Circle:
     def __init__(self):
-        self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=1)
+        self.pub = rospy.Publisher("car_cmd_switch_node/cmd", Twist2DStamped, queue_size=10)
 
     def move(self,y,x):
         move_msg=Twist2DStamped()
@@ -24,9 +24,9 @@ if __name__ == '__main__':
         count = 0
         #for count in range(0,100):#10 second timer
         while not rospy.is_shutdown():
-            if count<180:
-                ob.move(0.2,0.7)
-            elif count>150:
+            if count<200:
+                ob.move(0.2,1.4)
+            elif count>250:
                 break
             else:
                 ob.move(0,0)
