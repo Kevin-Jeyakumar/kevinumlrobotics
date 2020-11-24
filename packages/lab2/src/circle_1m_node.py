@@ -20,13 +20,13 @@ if __name__ == '__main__':
     try:
         rospy.init_node('circle_1m_node')
         ob=Circle()
-        rate=rospy.Rate(10)
+        rate=rospy.Rate(2)
         count = 0
         #for count in range(0,100):#10 second timer
         while not rospy.is_shutdown():
-            if count<200:
-                ob.move(0.2,1.4)
-            elif count>250:
+            if count<20:
+                ob.move(0.2,1.2)
+            elif count>30:
                 break
             else:
                 ob.move(0,0)
