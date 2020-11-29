@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="homework8" name="homework8_node" type="homework8.py"/>
+</launch>
