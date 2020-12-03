@@ -26,11 +26,11 @@ class Homework8:
 
         cv_hsv = cv2.cvtColor(cv_cropped, cv2.COLOR_BGR2HSV)
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3))
+        kernel2 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11,11))
 
         cv_white_filter = cv2.inRange(cv_hsv, (1,0,150), (180,30,255))
         cv_eroded_white_filter = cv2.erode(cv_white_filter, kernel)
-        cv_white_mask = cv2.dilate(cv_eroded_white_filter, kernel)
-        cv_white_mask = cv2.dilate(cv_white_mask, kernel)
+        cv_white_mask = cv2.dilate(cv_eroded_white_filter, kernel2)
         ros_white = self.bridge.cv2_to_imgmsg(cv_white_mask, "mono8")
         self.pub1.publish(ros_white)
         cv_white_filtered_image = cv2.bitwise_and(cv_cropped, cv_cropped, mask=cv_white_mask)
@@ -39,8 +39,7 @@ class Homework8:
 
         cv_yellow_filter = cv2.inRange(cv_hsv, (25,100,200), (40, 255, 255))
         cv_eroded_yellow_filter = cv2.erode(cv_yellow_filter, kernel)
-        cv_yellow_mask = cv2.dilate(cv_eroded_yellow_filter, kernel)
-        cv_yellow_mask = cv2.dilate(cv_yellow_mask, kernel)
+        cv_yellow_mask = cv2.dilate(cv_eroded_yellow_filter, kernel2)
         ros_yellow = self.bridge.cv2_to_imgmsg(cv_yellow_mask, "mono8")
         self.pub2.publish(ros_yellow)
         cv_yellow_filtered_image = cv2.bitwise_and(cv_cropped, cv_cropped, mask=cv_yellow_mask)
