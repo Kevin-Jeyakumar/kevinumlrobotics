@@ -4,7 +4,6 @@ import rospy
 import cv2
 import numpy as np
 from sensor_msgs.msg import Image
-from std_msgs.msg import Float32
 from cv_bridge import CvBridge
 
 class Homework9:
@@ -46,7 +45,7 @@ class Homework9:
             cv_can_white = cv2.bitwise_and(self.cv_canny, cv_img)
             ros_can_white = self.bridge.cv2_to_imgmsg(cv_can_white, "mono8")
             self.pub4.publish(ros_can_white)
-            self.white_hough_lines = cv2.HoughLinesP(cv_can_white, 1, (np.pi/180), 20, minLineLength = 5, maxLineGap = 5)
+            self.white_hough_lines = cv2.HoughLinesP(cv_can_white, 1, (np.pi/180), 10, minLineLength = 5, maxLineGap = 3)
             cv_hough = self.output_lines(self.cv_cropped, self.white_hough_lines)
             ros_white_lines = self.bridge.cv2_to_imgmsg(cv_hough, "bgr8")
             self.pub.publish(ros_white_lines)
@@ -57,7 +56,7 @@ class Homework9:
             cv_can_yellow = cv2.bitwise_and(self.cv_canny, cv_img)
             ros_can_yellow = self.bridge.cv2_to_imgmsg(cv_can_yellow, "mono8")
             self.pub5.publish(ros_can_yellow)
-            self.yellow_hough_lines = cv2.HoughLinesP(cv_can_yellow, 1, (np.pi/180), 20, minLineLength = 5, maxLineGap = 5)
+            self.yellow_hough_lines = cv2.HoughLinesP(cv_can_yellow, 1, (np.pi/180), 10, minLineLength = 5, maxLineGap = 3)
             cv_hough = self.output_lines(self.cv_cropped, self.yellow_hough_lines)
             ros_yellow_lines = self.bridge.cv2_to_imgmsg(cv_hough, "bgr8")
             self.pub1.publish(ros_yellow_lines)
