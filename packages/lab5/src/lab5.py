@@ -37,9 +37,11 @@ class Lab5:
     def callback(self, data):
         cv_img = self.bridge.comressed_imgmsg_to_cv2(data, "bgr8")
 
-        #-----Cropping-----#
-        y_size = len(cv_img[:,0,0])
-        cv_cropped = cv_img[int(y_size/2):,:,:]
+        #-----Resizing-and-Cropping-----#
+        image_size = (160, 120)
+        cv_img2 = cv2.resize(cv_img, image_size, interpolation=cv2.INTER_NEAREST)
+        y_size = 40 #len(cv_img[:,0,0])
+        cv_cropped = cv_img2[y_size:,:,:]
         ros_cropped = self.bridge.cv2_to_compressed_imgmsg(cv_cropped, "bgr8")
         #self.pub.publish(ros_cropped)
 
