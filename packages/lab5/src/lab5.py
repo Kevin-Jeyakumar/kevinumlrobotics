@@ -10,29 +10,43 @@ from cv_bridge import CvBridge
 class Lab5:
     def __init__(self):
         rospy.Subscriber("camera_node/image/compressed", CompressedImage, self.callback, queue_size=1, buff_size=2**24)
-        self.pub = rospy.Publisher("/image_cropped", CompressedImage, queue_size=1)
-        self.pub1 = rospy.Publisher("/image_white", CompressedImage, queue_size=1)
-        self.pub2 = rospy.Publisher("/image_yellow", CompressedImage, queue_size=1)
-        self.pub3 = rospy.Publisher("/image_white_filtered", CompressedImage, queue_size=1)
-        self.pub4 = rospy.Publisher("/image_yellow_filtered", CompressedImage, queue_size=1)
-        self.pub5 = rospy.Publisher("/image_lines_white", CompressedImage, queue_size=1)
-        self.pub6 = rospy.Publisher("/image_lines_yellow", CompressedImage, queue_size=1)
-        self.pub7 = rospy.Publisher("/image_lines_all", CompressedImage, queue_size=1)
-        self.pub8 = rospy.Publisher("/debug_canny", CompressedImage, queue_size=1)
-        self.pub9 = rospy.Publisher("/debug_canny_white", CompressedImage, queue_size=1)
-        self.pub10 = rospy.Publisher("/debug_canny_yellow", CompressedImage, queue_size=1)
+        self.pub = rospy.Publisher("ground_projection_node/liseseglist_out", SegmentList, queue_size=1)
+        #self.pub = rospy.Publisher("/image_cropped", CompressedImage, queue_size=1)
+        #self.pub1 = rospy.Publisher("/image_white", CompressedImage, queue_size=1)
+        #self.pub2 = rospy.Publisher("/image_yellow", CompressedImage, queue_size=1)
+        #self.pub3 = rospy.Publisher("/image_white_filtered", CompressedImage, queue_size=1)
+        #self.pub4 = rospy.Publisher("/image_yellow_filtered", CompressedImage, queue_size=1)
+        #self.pub5 = rospy.Publisher("/image_lines_white", CompressedImage, queue_size=1)
+        #self.pub6 = rospy.Publisher("/image_lines_yellow", CompressedImage, queue_size=1)
+        #self.pub7 = rospy.Publisher("/image_lines_all", CompressedImage, queue_size=1)
+        #self.pub8 = rospy.Publisher("/debug_canny", CompressedImage, queue_size=1)
+        #self.pub9 = rospy.Publisher("/debug_canny_white", CompressedImage, queue_size=1)
+        #self.pub10 = rospy.Publisher("/debug_canny_yellow", CompressedImage, queue_size=1)
         self.bridge = CvBridge()
 
     #-----Drawing_Lines-----
-    def output_lines(self, original_image, lines):
-        output = np.copy(original_image)
+    def output_lines(self, lines, color): #(self, original_image, lines):
+        seg_list = SegmentList()
+        image_size = (160, 120)
+        arr_cutoff = np.array([0, 40, 0, 40])
+        arr_ratio = np.array([1./image_size[1], 1./image_size[0], 1./image_size[1], 1./image_size[0]])
         if lines is not None:
+            seg_list.segments = [len(lines)]
             for i in range(len(lines)):
-                l = lines[i][0]
-                cv2.line(output, (l[0],l[1]), (l[2],l[3]), (255, 0, 0), 2, cv2.LINE_AA)
-                cv2.circle(output, (l[0], l[1]), 2, (0, 255, 0))
-                cv2.circle(output, (l[2], l[3]), 2, (0, 0, 255))
-        return output
+                l = (lines[i][0]+arr_cutoff)*arr_ratio
+                seg_list.segments[i].color = color
+                seg_list.segments[i].points[0].x = l[0]
+                seg_list.segments[i].points[0].y = l[1]
+                seg_list.segments[i].points[0].z = 0
+                seg_list.segments[i].points[1].x = l[2]
+                seg_list.segments[i].points[1].x = l[3]
+                seg_list.segments[i].points[1].x = 0
+
+                #cv2.line(output, (l[0],l[1]), (l[2],l[3]), (255, 0, 0), 2, cv2.LINE_AA)
+                #cv2.circle(output, (l[0], l[1]), 2, (0, 255, 0))
+                #cv2.circle(output, (l[2], l[3]), 2, (0, 0, 255))
+            self.pub.publish(seg_list)
+        #return seg_list
 
     def callback(self, data):
         cv_img = self.bridge.comressed_imgmsg_to_cv2(data, "bgr8")
@@ -80,8 +94,8 @@ class Lab5:
         ros_can_white = self.bridge.cv2_to_compressed_imgmsg(cv_can_white, "mono8")
         #self.pub9.publish(ros_can_white)
         white_hough_lines = cv2.HoughLinesP(cv_can_white, 1, (np.pi/180), 10, minLineLength = 5, maxLineGap = 3)
-        cv_hough = self.output_lines(cv_cropped, white_hough_lines)
-        ros_white_lines = self.bridge.cv2_to_compressed_imgmsg(cv_hough, "bgr8")
+        self.output_lines(white_hough_lines, 0)
+        #ros_white_lines = self.bridge.cv2_to_compressed_imgmsg(cv_hough, "bgr8")
         #self.pub5.publish(ros_white_lines)
 
         #-----Yellow_Lines-----#
@@ -89,9 +103,9 @@ class Lab5:
         ros_can_yellow = self.bridge.cv2_to_compressed_imgmsg(cv_can_yellow, "mono8")
         #self.pub10.publish(ros_can_yellow)
         yellow_hough_lines = cv2.HoughLinesP(cv_can_yellow, 1, (np.pi/180), 10, minLineLength = 5, maxLineGap = 3)
-        cv_hough = self.output_lines(self.cv_cropped, yellow_hough_lines)
-        ros_yellow_lines = self.bridge.cv2_to_compressed_imgmsg(cv_hough, "bgr8")
-        self.pub6.publish(ros_yellow_lines)
+        self.output_lines(yellow_hough_lines, 1)
+        #ros_yellow_lines = self.bridge.cv2_to_compressed_imgmsg(cv_hough, "bgr8")
+        #self.pub6.publish(ros_yellow_lines)
 
         
 if __name__ == "__main__":
