@@ -3,7 +3,7 @@
 import rospy
 import cv2
 import numpy as np
-import duckietown_msgs.msg import 
+from duckietown_msgs.msg import SegmentList 
 from sensor_msgs.msg import CompressedImage
 from cv_bridge import CvBridge
 
