@@ -38,13 +38,13 @@ class Lab5:
     #-----Creating_SegmentList-----#
     def output_lines(self, seg_list, lines, color): 
         #seg_list = SegmentList()
-        image_size = (160, 120)
+        image_size = (120, 160) #(160, 120)
         arr_cutoff = np.array([0, 40, 0, 40])
         arr_ratio = np.array([1./image_size[1], 1./image_size[0], 1./image_size[1], 1./image_size[0]])
         if lines is not None:
-            segment = Segment()
             for i in range(len(lines)):
                 l = (lines[i][0]+arr_cutoff)*arr_ratio
+                segment = Segment()
                 if color == 0:
                     segment.color = segment.WHITE
                 elif color == 1:
@@ -53,11 +53,11 @@ class Lab5:
                 segment.points[0].y = l[1]
                 segment.points[0].z = 0
                 segment.points[1].x = l[2]
-                segment.points[1].x = l[3]
-                segment.points[1].x = 0
+                segment.points[1].y = l[3]
+                segment.points[1].z = 0
                 seg_list.segments.append(segment)
-            self.pub.publish(seg_list)
-        #return seg_list
+            #self.pub.publish(seg_list)
+        return seg_list
 
     def callback(self, data):
         cv_img = self.bridge.compressed_imgmsg_to_cv2(data, "bgr8")
@@ -105,8 +105,8 @@ class Lab5:
         ros_can_white = self.bridge.cv2_to_imgmsg(cv_can_white, "mono8")
         self.pub9.publish(ros_can_white)
         white_hough_lines = cv2.HoughLinesP(cv_can_white, 1, (np.pi/180), 10, minLineLength = 5, maxLineGap = 3)
-        seg_list = SegmentList()
-        self.output_lines(seg_list, white_hough_lines, 0)
+        segment_list = SegmentList()
+        segment_list = self.output_lines(segment_list, white_hough_lines, 0)
         cv_hough = self.output_lines1(cv_cropped, white_hough_lines)
         ros_white_lines = self.bridge.cv2_to_imgmsg(cv_hough, "bgr8")
         self.pub5.publish(ros_white_lines)
@@ -116,10 +116,11 @@ class Lab5:
         ros_can_yellow = self.bridge.cv2_to_imgmsg(cv_can_yellow, "mono8")
         self.pub10.publish(ros_can_yellow)
         yellow_hough_lines = cv2.HoughLinesP(cv_can_yellow, 1, (np.pi/180), 10, minLineLength = 5, maxLineGap = 3)
-        self.output_lines(seg_list, yellow_hough_lines, 1)
+        segment_list = self.output_lines(segment_list, yellow_hough_lines, 1)
         cv_hough = self.output_lines1(cv_cropped, yellow_hough_lines)
         ros_yellow_lines = self.bridge.cv2_to_imgmsg(cv_hough, "bgr8")
         self.pub6.publish(ros_yellow_lines)
+        self.pub.publish(segment_list)
 
         #-----All_Lines-----#
         cv_hough = self.output_lines1(cv_hough, white_hough_lines)
