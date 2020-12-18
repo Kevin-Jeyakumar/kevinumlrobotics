@@ -102,9 +102,9 @@ class Lab5:
         self.pub4.publish(ros_yellow_filtered)
 
         #-----White_and_Yellow_Mask-----#
-        cv_all_mask = cv2.bitwise_and(cv_yellow_mask, cv_white_mask)
+        cv_all_mask = cv2.bitwise_or(cv_yellow_mask, cv_white_mask)
         cv_all_filtered_image = cv2.bitwise_and(cv_cropped, cv_cropped, mask=cv_all_mask)
-        ros_all_filtered = cv2.bridge.cv2_to_imgmsg(cv_all_filtered_image, "bgr8")
+        ros_all_filtered = self.bridge.cv2_to_imgmsg(cv_all_filtered_image, "bgr8")
         self.pub45.publish(ros_all_filtered)
 
         #-----Canny_Edges-----#
